@@ -37,7 +37,7 @@ class ChartComponent extends React.Component {
 			return <div>Loading...</div>
 		}
 		return (
-			<CandleStickStockChart type={"hybrid"} data={this.state.data} />
+			<Chart type={"hybrid"} data={this.state.data} />
 			// <TypeChooser>
 			// 	{type => <Chart type={type} data={this.state.data} />}
 			// </TypeChooser>

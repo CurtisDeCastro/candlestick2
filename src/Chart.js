@@ -4,12 +4,25 @@ import PropTypes from "prop-types";
 import { ChartCanvas, Chart } from "react-stockcharts";
 import {
 	CandlestickSeries,
+	BarSeries,
 } from "react-stockcharts/lib/series";
+
 import { XAxis, YAxis } from "react-stockcharts/lib/axes";
 
 import { discontinuousTimeScaleProvider } from "react-stockcharts/lib/scale";
 import { fitWidth } from "react-stockcharts/lib/helper";
 import { last } from "react-stockcharts/lib/utils";
+
+import {
+	CrossHairCursor,
+	MouseCoordinateX,
+	MouseCoordinateY
+} from "react-stockcharts/lib/coordinates";
+
+import { format } from "d3-format";
+import { timeFormat } from "d3-time-format";
+
+import { OHLCTooltip } from "react-stockcharts/lib/tooltip";
 
 class CandleStickStockScaleChart extends React.Component {
 	render() {
@@ -48,7 +61,36 @@ class CandleStickStockScaleChart extends React.Component {
 					<XAxis axisAt="bottom" orient="bottom" ticks={6}/>
 					<YAxis axisAt="left" orient="left" ticks={5} />
 					<CandlestickSeries />
+					<OHLCTooltip forChart={1} origin={[-40, 0]} />
 				</Chart>
+				<Chart
+					id={2}
+					height={150}
+					yExtents={d => d.volume}
+					origin={(w, h) => [0, h - 150]}
+				>
+					<YAxis
+						axisAt="left"
+						orient="left"
+						ticks={5}
+						tickFormat={format(".2s")}
+					/>
+					<MouseCoordinateX
+						at="bottom"
+						orient="bottom"
+						displayFormat={timeFormat("%Y-%m-%d")}
+					/>
+					<MouseCoordinateY
+						at="left"
+						orient="left"
+						displayFormat={format(".4s")}
+					/>
+					<BarSeries
+						yAccessor={d => d.volume}
+						fill={d => (d.close > d.open ? "#6BA583" : "#FF0000")}
+					/>
+				</Chart>
+				<CrossHairCursor/>
 			</ChartCanvas>
 		);
 	}
