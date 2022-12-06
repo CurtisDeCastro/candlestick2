@@ -1,6 +1,13 @@
 import { tsvParse, csvParse } from  "d3-dsv";
 import { timeParse } from "d3-time-format";
 
+import {
+	client,
+	useConfig,
+	useElementColumns,
+	useElementData,
+  } from "@sigmacomputing/plugin";
+
 function parseData(parse) {
 	return function(d) {
 		d.date = parse(d.date);
@@ -28,11 +35,11 @@ export function getData() {
 	//   .then(response => response.text())
 	//   .then(data => tsvParse(data, parseData(parseDate)))
 
-	  const promiseMSFT = fetch(AAPL)
+	  const promise = fetch(AAPL)
 	  .then(response => response.text())
 	  .then(data => csvParse(data, parseData(parseDate)))
 
-	return promiseMSFT;
+	return promise;
 
 
 }

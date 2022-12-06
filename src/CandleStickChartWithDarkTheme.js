@@ -49,6 +49,7 @@ const stoAppearance = {
 
 class CandleStickChartWithDarkTheme extends React.Component {
 	render() {
+
 		const height = 750;
 		const { type, data: initialData, width, ratio } = this.props;
 

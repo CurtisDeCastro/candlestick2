@@ -55,7 +55,6 @@ class CandleStickStockScaleChart extends React.Component {
 				xAccessor={xAccessor}
 				displayXAccessor={displayXAccessor}
 				xExtents={xExtents}
-				color="#303030"
 			>
 				<Chart 
 					id={1} 

@@ -31,10 +31,14 @@ client.config.configureEditorPanel([
 	{ name: "X-Axis", type: "column", source: "source", allowMultiple: true, allowedTypes: ['datetime'] },
   ]);
 
+// const config = useConfig();
+// const sigmaData = useElementData(config.source);
+
 class ChartComponent extends React.Component {
 
-	
 	componentDidMount() {
+
+		// console.log(sigmaData);
 
 		getData().then(data => {
 			this.setState({data})
