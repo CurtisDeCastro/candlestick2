@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import Chart from './Chart';
 import CandleStickStockChart from './Chart';
+import CandleStickChartWithDarkTheme from './CandleStickChartWithDarkTheme';
 import { getData } from "./utils";
 import data2 from './dummyData.js';
 
@@ -13,6 +14,13 @@ import {
 	useElementColumns,
 	useElementData,
   } from "@sigmacomputing/plugin";
+
+import styled from 'styled-components';
+
+const Wrapper = styled.div`
+  background-color: #303030;
+  height: 100%;
+`;
 
 client.config.configureEditorPanel([
 	{ name: "source", type: "element" },
@@ -37,10 +45,12 @@ class ChartComponent extends React.Component {
 			return <div>Loading...</div>
 		}
 		return (
-			<Chart type={"hybrid"} data={this.state.data} />
-			// <TypeChooser>
-			// 	{type => <Chart type={type} data={this.state.data} />}
-			// </TypeChooser>
+			<Wrapper>
+				<CandleStickChartWithDarkTheme 
+					type={"hybrid"}
+					data={this.state.data} 
+				/>
+			</Wrapper>
 		)
 	}
 }

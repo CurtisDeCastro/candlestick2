@@ -55,13 +55,16 @@ class CandleStickStockScaleChart extends React.Component {
 				xAccessor={xAccessor}
 				displayXAccessor={displayXAccessor}
 				xExtents={xExtents}
+				color="#303030"
 			>
-
-				<Chart id={1} yExtents={d => [d.high, d.low]}>
+				<Chart 
+					id={1} 
+					yExtents={d => [d.high, d.low]}
+				>
 					<XAxis axisAt="bottom" orient="bottom" ticks={6}/>
 					<YAxis axisAt="left" orient="left" ticks={5} />
 					<CandlestickSeries />
-					<OHLCTooltip forChart={1} origin={[-40, 0]} />
+					<OHLCTooltip forChart={1} origin={[0, 0]} />
 				</Chart>
 				<Chart
 					id={2}
@@ -70,8 +73,8 @@ class CandleStickStockScaleChart extends React.Component {
 					origin={(w, h) => [0, h - 150]}
 				>
 					<YAxis
-						axisAt="left"
-						orient="left"
+						axisAt="right"
+						orient="right"
 						ticks={5}
 						tickFormat={format(".2s")}
 					/>
