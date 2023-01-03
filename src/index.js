@@ -1,12 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { render } from 'react-dom';
-import Chart from './Chart';
-import CandleStickStockChart from './Chart';
 import CandleStickChartWithDarkTheme from './CandleStickChartWithDarkTheme';
 import { getData } from "./utils";
-import data2 from './dummyData.js';
-
-import { TypeChooser } from "react-stockcharts/lib/helper";
 
 import {
 	client,
@@ -17,7 +12,7 @@ import {
 
 import styled from 'styled-components';
 
-const Wrapper = styled.div`
+const Background = styled.div`
   background-color: #303030;
   height: 100%;
 `;
@@ -31,33 +26,56 @@ client.config.configureEditorPanel([
 	{ name: "X-Axis", type: "column", source: "source", allowMultiple: true, allowedTypes: ['datetime'] },
   ]);
 
-// const config = useConfig();
-// const sigmaData = useElementData(config.source);
+const ChartComponent = () => {
+  const config = useConfig();
+  const sigmaData = useElementData(config.source);
 
-class ChartComponent extends React.Component {
+  console.log(sigmaData);
 
-	componentDidMount() {
+  const [data, setData] = React.useState(null);
+//   const [counter, setCounter] = React.useState(0);
 
-		// console.log(sigmaData);
+  React.useEffect(() => {getData().then(data => setData(data))}, []);
 
-		getData().then(data => {
-			this.setState({data})
-		})
-	}
-	render() {
-		if (this.state == null) {
-			return <div>Loading...</div>
-		}
-		return (
-			<Wrapper>
-				<CandleStickChartWithDarkTheme 
-					type={"hybrid"}
-					data={this.state.data} 
-				/>
-			</Wrapper>
-		)
-	}
+  if(!data) {
+    return (<div>Loading...</div>)
+  }
+
+  return (
+	<Background>
+		<CandleStickChartWithDarkTheme 
+			type={"hybrid"}
+			data={data} 
+		/>
+   </Background>
+  )
+
 }
+
+// class ChartComponent extends React.Component {
+
+// 	componentDidMount() {
+
+// 		// console.log(sigmaData);
+
+// 		getData().then(data => {
+// 			this.setState({data})
+// 		})
+// 	}
+// 	render() {
+// 		if (this.state == null) {
+// 			return <div>Loading...</div>
+// 		}
+// 		return (
+// 			<Background>
+// 				<CandleStickChartWithDarkTheme 
+// 					type={"hybrid"}
+// 					data={this.state.data} 
+// 				/>
+// 			</Background>
+// 		)
+// 	}
+// }
 
 render(
 	<ChartComponent />,
