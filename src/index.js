@@ -34,7 +34,7 @@ const ChartComponent = () => {
   const sigmaCols = useElementColumns(config.source);
   const sigmaData = useElementData(config.source);
 
-  console.log(sigmaData);
+  console.log("SIGMA DATA", sigmaData);
 
   // create storage for column IDs 
   const columnIds = {};
@@ -52,7 +52,7 @@ const ChartComponent = () => {
 	// create a new property of newData named after the alias' user-facing name, and asssign it to that column's array of values
 	newData[columnIds[key]] = sigmaData[key];
 	// delete the original property after the new one has been created
-	delete sigmaData[key];
+	// delete sigmaData[key];
   })
 
   console.log("NEW DATA", newData);
