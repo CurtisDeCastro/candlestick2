@@ -1,12 +1,5 @@
-import { tsvParse, csvParse } from  "d3-dsv";
+import { csvParse } from  "d3-dsv";
 import { timeParse } from "d3-time-format";
-
-import {
-	client,
-	useConfig,
-	useElementColumns,
-	useElementData,
-  } from "@sigmacomputing/plugin";
 
 function parseData(parse) {
 	return function(d) {
@@ -25,17 +18,11 @@ const parseDate = timeParse("%Y-%m-%d");
 
 export function getData() {
 
-	// must output an array of objects representing each row
+	console.log("getting Data 2023");
 
-	const TSLA = 'https://res.cloudinary.com/dajho2imi/raw/upload/v1668838674/tsla_stock_qk2lxb.tsv';
 	const AAPL = 'https://res.cloudinary.com/dajho2imi/raw/upload/v1670275073/AAPL_zvxqwi.csv';
-	const BTC = 'https://res.cloudinary.com/dajho2imi/raw/upload/v1670274133/BTC2_-_BITCOIN_PRICES_3_lkmw5t_1_qx6wxu.tsv';
 
-	// const promiseMSFT = fetch(BTC)
-	//   .then(response => response.text())
-	//   .then(data => tsvParse(data, parseData(parseDate)))
-
-	  const promise = fetch(AAPL)
+    const promise = fetch(AAPL)
 	  .then(response => response.text())
 	  .then(data => csvParse(data, parseData(parseDate)))
 
