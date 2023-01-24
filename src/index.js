@@ -10,7 +10,6 @@ import {
 	useElementData,
 } from "@sigmacomputing/plugin";
 
-// config source columns
 client.config.configureEditorPanel([
 	{ name: "source", type: "element" },
 	{ name: "Ticker", type: "column", source: "source", allowMultiple: false, allowedTypes: ['text'] },
@@ -22,10 +21,8 @@ client.config.configureEditorPanel([
 	{ name: "Volume", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
 ]);
 
-// create functional component for chart
 const ChartComponent = () => {
 
-  // initiate hooks	
   const config = useConfig();
   const sigmaCols = useElementColumns(config.source);
   const sigmaData = useElementData(config.source);
