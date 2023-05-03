@@ -50,8 +50,8 @@ const stoAppearance = {
 class CandleStickChartWithDarkTheme extends React.Component {
 	render() {
 
-		const height = 750;
 		const { type, data: initialData, width, ratio, prefs } = this.props;
+		const height = Number(prefs.ChartHeight) !== null ? Number(prefs.ChartHeight) : 750;
 
 		const margin = { left: 70, right: 70, top: 20, bottom: 30 };
 
@@ -108,7 +108,7 @@ class CandleStickChartWithDarkTheme extends React.Component {
 
 
 		return (
-			<ChartCanvas height={1000}
+			<ChartCanvas height={height}
 				width={width}
 				ratio={ratio}
 				margin={margin}
@@ -201,16 +201,24 @@ class CandleStickChartWithDarkTheme extends React.Component {
 						options={bb.options()}
 					/>
 				</Chart>
-				<Chart id={2}
+				<Chart
+					id={2}
 					yExtents={d => d.volume}
-					height={100} origin={(w, h) => [0, h - 475]}
+					height={100}
+					origin={(w, h) => [0, h - 475]}
 				>
-					<YAxis axisAt="left" orient="left" ticks={5} tickFormat={format(".2s")}
-						tickStroke="#FFFFFF" />
+					<YAxis 
+						axisAt="left"
+						orient="left"
+						ticks={5}
+						tickFormat={format(".2s")}
+						tickStroke="#FFFFFF" 
+					/>
 					<BarSeries
 						yAccessor={d => d.volume}
-						fill={d => d.close > d.open ? "#6BA583" : "#DB0000"} />
-				</Chart>
+						fill={d => d.close > d.open ? "#6BA583" : "#DB0000"} 
+					/>
+				</Chart> 
 				{
 					prefs.SlowSTO ?
 						<Chart id={3}

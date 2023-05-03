@@ -22,7 +22,6 @@ client.config.configureEditorPanel([
 	{ name: "Volume", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
 	{ name: "Preferences", type: "group" },
 	{ name: "Enable Dark Mode?", type: "toggle", source: "Preferences" },
-	// { name: "Volume", type: "toggle", source: "Preferences" },
 	{ name: "Slow STO", type: "toggle", source: "Preferences" },
 	{ name: "Fast STO", type: "toggle", source: "Preferences" },
 	{ name: "Full STO", type: "toggle", source: "Preferences" },
@@ -30,11 +29,8 @@ client.config.configureEditorPanel([
 	{ name: "Moving Average", type: "toggle", source: "Preferences" },
 	{ name: "EMA 20", type: "toggle", source: "Preferences" },
 	{ name: "EMA 50", type: "toggle", source: "Preferences" },
-    // {
-	// 	name: 'text input #1',
-	// 	source: 'source',
-	// 	type: 'text'
-	// },
+	{ name: "Advanced Preferences", type: "group" },
+    { name: 'Chart Height', source: 'Advanced Preferences', type: 'text' },
 ]);
 
 const ChartComponent = () => {
@@ -50,7 +46,7 @@ const ChartComponent = () => {
 	BollingerBands: client.config.getKey("Bollinger Bands"),
 	EMA20: client.config.getKey("EMA 20"),
 	EMA50: client.config.getKey("EMA 50"),
-	// Volume: client.config.getKey("Volume"),
+	ChartHeight: client.config.getKey("Chart Height"),
   }
   
   console.log(prefs, "PREFERENCES");
