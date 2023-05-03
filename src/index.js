@@ -1,7 +1,8 @@
 import React, { useMemo } from 'react';
 import { render } from 'react-dom';
 import CandleStickChartWithDarkTheme from './CandleStickChartWithDarkTheme';
-import Background from "./Background";
+import DarkBackground from "./DarkBackground";
+import LightBackground from "./LightBackground";
 
 import {
 	client,
@@ -19,6 +20,21 @@ client.config.configureEditorPanel([
 	{ name: "Open", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
 	{ name: "Close", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
 	{ name: "Volume", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
+	{ name: "Preferences", type: "group" },
+	{ name: "Enable Dark Mode?", type: "toggle", source: "Preferences" },
+	// { name: "Volume", type: "toggle", source: "Preferences" },
+	{ name: "Slow STO", type: "toggle", source: "Preferences" },
+	{ name: "Fast STO", type: "toggle", source: "Preferences" },
+	{ name: "Full STO", type: "toggle", source: "Preferences" },
+	{ name: "Bollinger Bands", type: "toggle", source: "Preferences" },
+	{ name: "Moving Average", type: "toggle", source: "Preferences" },
+	{ name: "EMA 20", type: "toggle", source: "Preferences" },
+	{ name: "EMA 50", type: "toggle", source: "Preferences" },
+    // {
+	// 	name: 'text input #1',
+	// 	source: 'source',
+	// 	type: 'text'
+	// },
 ]);
 
 const ChartComponent = () => {
@@ -26,6 +42,20 @@ const ChartComponent = () => {
   const config = useConfig();
   const sigmaCols = useElementColumns(config.source);
   const sigmaData = useElementData(config.source);
+
+  const prefs = {
+	SlowSTO: client.config.getKey("Slow STO"),
+	FastSTO: client.config.getKey("Fast STO"),
+	FullSTO: client.config.getKey("Full STO"),
+	BollingerBands: client.config.getKey("Bollinger Bands"),
+	EMA20: client.config.getKey("EMA 20"),
+	EMA50: client.config.getKey("EMA 50"),
+	// Volume: client.config.getKey("Volume"),
+  }
+  
+  console.log(prefs, "PREFERENCES");
+
+  const DarkModeEnabled = client.config.getKey("Enable Dark Mode?");
 
   const data = useMemo(() => {
 	const result = [];
@@ -54,12 +84,25 @@ const ChartComponent = () => {
   }
 
   return (
-	<Background>
-		<CandleStickChartWithDarkTheme 
-			type={"hybrid"}
-			data={data} 
-		/>
-   </Background>
+	<div height="100%">
+		{
+			DarkModeEnabled ? 
+				<DarkBackground>
+					<CandleStickChartWithDarkTheme 
+						type={"svg"}
+						data={data} 
+						prefs={prefs}
+					/>
+				</DarkBackground> :
+				<LightBackground>
+					<CandleStickChartWithDarkTheme 
+						type={"svg"}
+						data={data} 
+						prefs={prefs}
+					/>
+			    </LightBackground>
+		}
+	</div>
   )
 }
 
