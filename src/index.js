@@ -49,7 +49,7 @@ const ChartComponent = () => {
 	ChartHeight: client.config.getKey("Chart Height"),
   }
   
-  console.log(prefs, "PREFERENCES");
+  console.log(sigmaData);
 
   const DarkModeEnabled = client.config.getKey("Enable Dark Mode?");
 
