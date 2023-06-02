@@ -80,7 +80,7 @@ const ChartComponent = () => {
   }
 
   return (
-	<div height="100%">
+	<div>
 		{
 			DarkModeEnabled ? 
 				<DarkBackground>
