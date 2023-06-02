@@ -10,7 +10,6 @@ import {
 
 client.config.configureEditorPanel([
 	{ name: "source", type: "element" },
-	{ name: "Ticker", type: "column", source: "source", allowMultiple: false, allowedTypes: ['text'] },
 	{ name: "Date", type: "column", source: "source", allowMultiple: false, allowedTypes: ['datetime'] },
 	{ name: "High", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
 	{ name: "Low", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
@@ -44,6 +43,7 @@ const ChartComponent = () => {
 			result.push(row);
 		}
 	}
+	result.sort((a,b) => (a.date > b.date) ? 1 : -1)
 	return result;
   }, [sigmaCols, sigmaData])
 
