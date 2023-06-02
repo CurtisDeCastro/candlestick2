@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { render } from 'react-dom';
 import CandlestickChart from './CandlestickChart';
-import LightBackground from "./LightBackground";
 import {
 	client,
 	useConfig,
@@ -17,7 +16,6 @@ client.config.configureEditorPanel([
 	{ name: "Low", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
 	{ name: "Open", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
 	{ name: "Close", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
-	{ name: "Volume", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
 ]);
 
 const ChartComponent = () => {
@@ -25,10 +23,6 @@ const ChartComponent = () => {
   const config = useConfig();
   const sigmaCols = useElementColumns(config.source);
   const sigmaData = useElementData(config.source);
-
-  const prefs = {
-	Volume: client.config.getKey("Volume"),
-  }
 
   // mapping function for returning the data in the correct format below
   const data = useMemo(() => {
@@ -59,13 +53,10 @@ const ChartComponent = () => {
   }
 
   return (
-	<LightBackground>
-		<CandlestickChart 
-			type={"svg"}
-			data={data} 
-			prefs={prefs}
-		/>
-	</LightBackground>
+	<CandlestickChart 
+		type={"svg"}
+		data={data} 
+	/>
   )
 }
 

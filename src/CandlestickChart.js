@@ -28,6 +28,7 @@ class CandlestickChart extends React.Component {
 		const yGrid = showGrid ? { innerTickSize: -1 * gridWidth, tickStrokeOpacity: 0.2 } : {};
 		const xGrid = showGrid ? { innerTickSize: -1 * gridHeight, tickStrokeOpacity: 0.2 } : {};
 
+		// START helper functions for additional feature support
 		const ema20 = ema()
 			.id(0)
 			.options({ windowSize: 20 })
@@ -58,6 +59,7 @@ class CandlestickChart extends React.Component {
 		const bb = bollingerBand()
 			.merge((d, c) => {d.bb = c;})
 			.accessor(d => d.bb);
+		// END helper functions for additional feature support
 
 		const calculatedData = bb(ema20(ema50(slowSTO(fastSTO(fullSTO(initialData))))));
 		const xScaleProvider = discontinuousTimeScaleProvider.inputDateAccessor(d => d.date);
