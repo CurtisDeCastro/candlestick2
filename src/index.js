@@ -1,9 +1,7 @@
 import React, { useMemo } from 'react';
 import { render } from 'react-dom';
-import CandleStickChartWithDarkTheme from './CandleStickChartWithDarkTheme';
-import DarkBackground from "./DarkBackground";
+import CandlestickChart from './CandlestickChart';
 import LightBackground from "./LightBackground";
-
 import {
 	client,
 	useConfig,
@@ -20,17 +18,6 @@ client.config.configureEditorPanel([
 	{ name: "Open", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
 	{ name: "Close", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
 	{ name: "Volume", type: "column", source: "source", allowMultiple: false, allowedTypes: ['number', 'integer'] },
-	{ name: "Preferences", type: "group" },
-	{ name: "Enable Dark Mode?", type: "toggle", source: "Preferences" },
-	{ name: "Slow STO", type: "toggle", source: "Preferences" },
-	{ name: "Fast STO", type: "toggle", source: "Preferences" },
-	{ name: "Full STO", type: "toggle", source: "Preferences" },
-	{ name: "Bollinger Bands", type: "toggle", source: "Preferences" },
-	{ name: "Moving Average", type: "toggle", source: "Preferences" },
-	{ name: "EMA 20", type: "toggle", source: "Preferences" },
-	{ name: "EMA 50", type: "toggle", source: "Preferences" },
-	{ name: "Advanced Preferences", type: "group" },
-    { name: 'Chart Height', source: 'Advanced Preferences', type: 'text' },
 ]);
 
 const ChartComponent = () => {
@@ -40,19 +27,10 @@ const ChartComponent = () => {
   const sigmaData = useElementData(config.source);
 
   const prefs = {
-	SlowSTO: client.config.getKey("Slow STO"),
-	FastSTO: client.config.getKey("Fast STO"),
-	FullSTO: client.config.getKey("Full STO"),
-	BollingerBands: client.config.getKey("Bollinger Bands"),
-	EMA20: client.config.getKey("EMA 20"),
-	EMA50: client.config.getKey("EMA 50"),
-	ChartHeight: client.config.getKey("Chart Height"),
+	Volume: client.config.getKey("Volume"),
   }
-  
-  console.log(sigmaData);
 
-  const DarkModeEnabled = client.config.getKey("Enable Dark Mode?");
-
+  // mapping function for returning the data in the correct format below
   const data = useMemo(() => {
 	const result = [];
 	if (Object.keys(sigmaData).length) {
@@ -75,30 +53,19 @@ const ChartComponent = () => {
 	return result;
   }, [sigmaCols, sigmaData])
 
+  // handling for async loading call below
   if(!data || !data.length) {
     return (<div>Loading...</div>)
   }
 
   return (
-	<div height="100%">
-		{
-			DarkModeEnabled ? 
-				<DarkBackground>
-					<CandleStickChartWithDarkTheme 
-						type={"svg"}
-						data={data} 
-						prefs={prefs}
-					/>
-				</DarkBackground> :
-				<LightBackground>
-					<CandleStickChartWithDarkTheme 
-						type={"svg"}
-						data={data} 
-						prefs={prefs}
-					/>
-			    </LightBackground>
-		}
-	</div>
+	<LightBackground>
+		<CandlestickChart 
+			type={"svg"}
+			data={data} 
+			prefs={prefs}
+		/>
+	</LightBackground>
   )
 }
 
