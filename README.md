@@ -54,6 +54,6 @@ By ensuring your data aligns with these specifications, you will be able to gene
 
 ---
 
-We hope you found this documentation helpful. If you have any further queries, feel free to raise an issue in our [GitHub repository](https://github.com/your-repo).
+We hope you found this documentation helpful. If you have any further queries, feel free to raise an issue in our [GitHub repository](https://github.com/sigmacomputing/sigma-sample-plugins).
 
 Happy charting!
