@@ -21,7 +21,7 @@ React-Stockcharts is a library built specifically for financial data visualizati
 
 ## Candlestick Charts Explained
 
-Candlestick charts, originating in Japan over 200 years ago, are used in technical analysis to represent price movements of an equity (stock, bond, commodity, etc.) over a specified time period. They are composed of individual "candles" that depict the open, high, low, and close prices for each time period.
+Candlestick charts are used in technical analysis to represent price movements of an equity (stock, bond, commodity, etc.) over a specified time period. They are composed of individual "candles" that depict the open, high, low, and close prices for each time period.
 
 A single candlestick consists of two parts: 
 
